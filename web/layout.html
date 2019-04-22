@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="author" content="gaoing<1422298566@qq.com">
+<title>菜品管理系统</title>
+<link rel="stylesheet" href="./layui/css/layui.css">
+<style>
+  body{
+    min-width: 1200px;
+  }
+  iframe{
+    vertical-align: top;
+  }
+</style>
+</head>
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <!-- 页面头部 -->
+    <div class="layui-header">
+        <div class="layui-logo">菜品管理系统</div>
+        <ul class="layui-nav layui-layout-left" lay-filter="tags">
+          <li class="layui-nav-item"><a href="javascript:;">菜品管理</a></li>
+          <li class="layui-nav-item"><a href="javascript:;">语音识别</a></li>
+        </ul>
+        <!-- <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item">
+            <a href="javascript:;">
+              <img src="./images/ren.png" class="layui-nav-img">
+              用户01
+            </a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;">头像设置</a></dd>
+              <dd><a href="javascript:;">修改密码</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul> -->
+    </div>
+    <!-- 页面侧导航 -->
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="tabs">
+          <li class="layui-nav-item layui-nav-itemed">
+            <a id="tab" href="javascript:;">菜品管理</a>
+            <dl id="tabs" class="layui-nav-child">
+              <dd><a href="javascript:;">菜品列表</a></dd>
+              <dd><a href="javascript:;">菜品入库</a></dd>
+              <dd><a href="javascript:;">菜品识别</a></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+      <iframe src="./dishlist.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="layui-footer">
+      <!-- 底部固定区域 -->
+      陕西人和数码有限公司
+    </div>
+  </div>
+</body>
+<script src="./layui/layui.js"></script>
+<script type="text/javascript">
+  layui.use(['element', 'jquery'], function() {
+    var element = layui.element, $ = layui.jquery;
+    var data = [{
+          name: '菜品管理',
+          paths: [{
+            name: '菜品列表',
+            path: './dishlist.html'
+          },{
+            name: '菜品入库',
+            path: './dishstorage.html'
+          },{
+            name: '菜品识别',
+            path: './dishrec.html'
+          }]
+        },{
+          name: '语音识别',
+          paths: [{
+            name: '语音识别',
+            path: './dishlist.html'
+          },{
+            name: '语音合成',
+            path: './dishstorage.html'
+          }]
+        }], tabs = data[0];
+    var searchName = function(strName, dataArr) {
+      var tempPath = null;
+      $.each(dataArr, function(i, item) {
+        if(strName == item.name){
+          tempPath = item;
+        }
+      });
+      return tempPath;
+    }
+    element.on('nav(tags)', function(elem) {
+      tabs = searchName($(elem).html(), data),html = '';
+      $('#tab').html(tabs.name);
+      $.each(tabs.paths, function(i, item) {
+        html += '<dd><a href="javascript:;">'+ item.name +'</a></dd>';
+      });
+      $('#tabs').html(html);
+      element.render('nav');
+    });
+    element.on('nav(tabs)', function(elem) {
+      var path = searchName($(elem).html(), tabs.paths);
+      $('iframe').attr('src', path.path);
+    });
+  });
+</script>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="author" content="gaoing<1422298566@qq.com">
+<title>菜品入库</title>
+<link rel="stylesheet" href="./layui/css/layui.css">
+<style>
+  h1{
+    padding: 20px;
+  }
+  .wrap{
+    display: flex;
+  }
+  .info{
+    width: 49%;
+  }
+  .info-img{
+    position: relative;
+    border: 1px solid #dfdfdf;
+    margin-left: 10px;
+  }
+  .video{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 1px solid #dfdfdf;
+  }
+  .image{
+    margin: 0 0 0 50px;
+    border: 1px solid #dfdfdf;
+  }
+</style>
+</head>
+<body>
+  <h1>菜品入库</h1>
+  <div class="wrap">
+    <div class="info info-text">
+      <form class="layui-form" action="">
+        <div class="layui-form-item">
+          <label class="layui-form-label">菜品名称</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">菜品简介</label>
+          <div class="layui-input-block">
+              <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formSub">入库</button>
+          </div>
+        </div>
+      </form>
+      <img id="photo" class="image" width="512" height="384" src="" alt="">
+
+    </div>
+    <div class="info info-img">
+      <div><button id="ph" class="layui-btn">拍照</button></div>
+      <video class="video" id="video" width="512" height="384"></video>
+    </div>
+  </div>
+</body>
+<script src="./layui/layui.js"></script>
+<script src="./js/camera.js"></script>
+<script type="text/javascript">
+  layui.use(['jquery', 'form', 'layer'], function() {
+    var $ = layui.jquery, form = layui.form, layer = layui.layer;
+    var image = null;
+    var camera = new Camera($('#video')[0]).open();
+    $('#ph').on('click', function() {
+      image = camera.photograph();
+      $('#photo').attr('src', image);
+    });
+    form.on('submit(formSub)', function(data) {
+      var load = layer.load(1);
+      var fd = new FormData();
+      fd.append('image', image);
+      fd.append('name', data.field.title);
+      fd.append('synopsis', data.field.desc);
+      $.ajax({
+        url: 'http://localhost/xampp/baiduai/server/warehousing.php',
+        type: 'post',
+        processData:false,
+        contentType:false,
+        data: fd
+      }).done(function(e){
+        layer.close(load);
+        if(e == 'success'){
+          layer.msg('入库成功');
+        }else{
+          layer.msg('入库失败');
+        }
+      }).fail(function() {
+        layer.close(load);
+        console.log('请求出错了！！！');
+        layer.msg('请求失败');
+      });
+      return false;
+    });
+  });
+</script>
+</html>

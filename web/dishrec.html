@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="author" content="gaoing<1422298566@qq.com">
+<title>菜品识别</title>
+<link rel="stylesheet" href="./layui/css/layui.css">
+<style>
+  h1{
+    padding: 20px;
+  }
+  .wrap-item{
+    text-align: center;
+  }
+  .phbtn-btn{
+    width: 200px;
+  }
+  .recbox{
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    margin: 20px 0;
+    width: 514px;
+    height: 386px;
+  }
+  .video{
+    border: 1px solid #cccccc;
+  }
+  .image,.mask{
+    border: 1px solid #cccccc;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .mask{
+    background-color: rgba(255, 255, 255, 0);
+  }
+</style>
+</head>
+<body>
+  <h1>菜品识别</h1>
+  <div class="wrap">
+    <div class="wrap-item phbtn">
+        <button id="ph"  class="layui-btn layui-btn-lg layui-btn-radius layui-btn-warm phbtn-btn">拍照</button>
+        <button id="rph"  class="layui-btn layui-btn-lg layui-btn-radius layui-btn-warm phbtn-btn">重新拍照</button>
+    </div>
+    <div class="wrap-item vidoeshow">
+      <div class="recbox">
+          <video class="video" id="video" width="512" height="384"></video>
+          <!-- <img class="image" id="image" width="512" height="384" src="" alt=""> -->
+          <canvas class="mask" id="mask" width="512" height="384"></canvas>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./layui/layui.js"></script>
+<script src="./js/camera.js"></script>
+<script type="text/javascript">
+  layui.use(['jquery', 'layer'], function() {
+    var $ = layui.jquery, layer = layui.layer;
+    var image = null;
+    var canv = $('#mask')[0];
+    var ctx = canv.getContext('2d');
+    var camera = new Camera($('#video')[0]).open();
+    $('#rph').on('click', function(){
+      ctx.clearRect(0,0,canv.width,canv.height);
+      $('#video').show();
+      $('#mask').hide();
+    });
+    $('#ph').on('click', function() {
+      var index = layer.load(1);
+      $('#video').hide();
+      $('#mask').show();
+      image = camera.photograph();
+      canv.style.background = 'url('+ image +') no-repeat';
+      canv.style.backgroundSize = 'contain';
+      var fd = new FormData();
+      fd.append('image', image);
+      $.ajax({
+        url: 'http://localhost/xampp/baiduai/server/dishreg.php',
+        type: 'post',
+        processData:false,
+        contentType:false,
+        data: fd
+      }).done(function(e){
+        layer.close(index);
+        e = JSON.parse(e);
+        ctx.fillStyle = 'rgba(0,0,0,.5)';
+        ctx.rect(0,0,canv.width,canv.height);
+        ctx.fill();
+        $.each(e, function(i, item) {
+          ctx.clearRect(item.location.left,item.location.top,item.location.width,item.location.height);
+        });
+        $.each(e, function(i, item) {
+          ctx.font = 'bold 20px Arial';
+          ctx.fillStyle = 'red';
+          ctx.fillText(item.name, item.location.left, item.location.top + 20);
+        });
+      }).fail(function() {
+        layer.close(index);
+        console.log('请求出错了！！！');
+      });
+    });
+  });
+</script>
+</html>
