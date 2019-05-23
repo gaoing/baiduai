@@ -124,6 +124,7 @@
         type: 'get'
       }).done(function(e){
         e = JSON.parse(e);
+     
         var html = '';
         $.each(e, function(i, item) {
           html += '<div class="pop-item">'+

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="author" content="gaoing<1422298566@qq.com">
+<title>食品安全</title>
+<link rel="stylesheet" href="./layui/css/layui.css">
+<style>
+  html,body{
+    margin: 0;
+    padding: 10px 0;
+    background-color: #eeeeee;
+  }
+  .layui-carousel[lay-indicator=outside] .layui-carousel-ind{
+    position: absolute;
+    top: -41px;
+    text-align: right;
+  }
+  .layui-carousel[lay-indicator=outside] .layui-carousel-ind ul{
+    background: 0 0;
+  }
+  .layui-carousel[lay-indicator=outside] .layui-carousel-ind ul li{
+    background-color: #e2e2e2;
+  }
+  .layui-carousel[lay-indicator=outside] .layui-carousel-ind ul li.layui-this{
+    background-color: #009688;
+  }
+  .layui-carousel li{
+    text-align: center;
+  }
+  .layui-carousel li .layui-icon{
+    display: inline-block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 30px;
+    background-color: #ffffff;
+    color: #333;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+  }
+  .layui-carousel,.layui-carousel>[carousel-item]>*{
+    background-color: #ffffff;
+  }
+  a{
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md8">
+        <div class="layui-row layui-col-space15">
+          <div class="layui-col-md6">
+            <div class="layui-card">
+              <div class="layui-card-header">食安基础</div>
+              <div class="layui-card-body">
+                <div class="layui-carousel" id="test1">
+                  <div carousel-item>
+                    <ul class="layui-row layui-col-space10">
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>食安机构</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>食安制度</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>食安人员</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>预警设置</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>厂商证照</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>废弃物证照</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>食安知识库</cite>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-col-md6">
+            <div class="layui-card">
+              <div class="layui-card-header">食安业务</div>
+              <div class="layui-card-body">
+                <div class="layui-carousel" id="test2">
+                  <div carousel-item>
+                    <ul class="layui-row layui-col-space10">
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>自查评估</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>过程控制</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>检验检测</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>留样管理</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>投诉管理</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>事故处置</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>食品溯源</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="javascript:;">
+                          <i class="layui-icon layui-icon-console"></i>
+                          <cite>废弃登记</cite>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-col-md12">
+            <div class="layui-card">
+              <div class="layui-card-header">食安预警</div>
+              <div class="layui-card-body">
+                <div class="layui-carousel" id="test5">
+                  <div carousel-item>
+                    <div class="echarts"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-col-md12">
+            <div class="layui-card">
+              <div class="layui-card-header">食安动态</div>
+              <div class="layui-card-body">
+                  <table class="layui-table" lay-skin="line" lay-size="sm">
+                      <colgroup>
+                        <col width="30">
+                        <col>
+                        <col width="150">
+                        <col width="150">
+                        <col width="150">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>动态标题</th>
+                          <th>发帖者</th>
+                          <th>类别</th>
+                          <th>点击率</th>
+                        </tr> 
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>安环科Seuss谁卡了按时开放</td>
+                          <td>市场监管总局</td>
+                          <td>公告</td>
+                          <td>3568</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>黑心作坊曝光</td>
+                          <td>百度贴吧</td>
+                          <td>论坛</td>
+                          <td>3516</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>食品添加剂使用规范</td>
+                          <td>中国食品网</td>
+                          <td>分享</td>
+                          <td>6698</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-md4">
+        <div class="layui-card">
+          <div class="layui-card-header">食安监控</div>
+          <div class="layui-card-body">
+            <div class="layui-carousel" id="test3">
+              <div carousel-item>
+                <ul class="layui-row layui-col-space10">
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>明厨亮灶</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>设备监控</cite>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-card">
+          <div class="layui-card-header">食安待办</div>
+          <div class="layui-card-body">
+            <div class="layui-carousel" id="test4">
+              <div carousel-item>
+                <ul class="layui-row layui-col-space10">
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>执照待审</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>健康证</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>自查评估</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>留样管理</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>检测计划</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>投诉处理</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>事故处置</cite>
+                    </a>
+                  </li>
+                  <li class="layui-col-xs3">
+                    <a lay-href="javascript:;">
+                      <i class="layui-icon layui-icon-console"></i>
+                      <cite>废弃登记</cite>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-card">
+          <div class="layui-card-header">舆情监控</div>
+          <div class="layui-card-body">
+              <table class="layui-table" lay-skin="line" lay-size="sm">
+                <colgroup>
+                  <col width="30">
+                  <col>
+                  <col width="150">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>舆情标题</th>
+                    <th>发帖时间</th>
+                  </tr> 
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>市场监管总局开展学校食堂...</td>
+                    <td>2016-11-29 15:52:33</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>黑心作坊曝光</td>
+                    <td>2016-11-29 15:52:33</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>食品添加剂使用规范</td>
+                    <td>2016-11-29 15:52:33</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./layui/layui.js"></script>
+<script src="./js/echarts.min.js"></script>
+<script type="text/javascript">
+  layui.use(['element', 'carousel', 'jquery'], function() {
+    var el = layui.element, carousel = layui.carousel, $ = layui.jquery;
+    carousel.render({
+      elem: '#test1'
+      ,width: '100%' //设置容器宽度
+      ,arrow: 'none' //始终显示箭头
+      ,height: '180px'
+      //,anim: 'updown' //切换动画方式
+      ,indicator: 'outside'
+    });
+    carousel.render({
+      elem: '#test2'
+      ,width: '100%' //设置容器宽度
+      ,arrow: 'none' //始终显示箭头
+      ,height: '180px'
+      //,anim: 'updown' //切换动画方式
+      ,indicator: 'outside'
+    });
+    carousel.render({
+      elem: '#test3'
+      ,width: '100%' //设置容器宽度
+      ,arrow: 'none' //始终显示箭头
+      ,height: '180px'
+      //,anim: 'updown' //切换动画方式
+      ,indicator: 'outside'
+    });
+    carousel.render({
+      elem: '#test4'
+      ,width: '100%' //设置容器宽度
+      ,arrow: 'none' //始终显示箭头
+      ,height: '180px'
+      //,anim: 'updown' //切换动画方式
+      ,indicator: 'outside'
+    });
+    carousel.render({
+      elem: '#test5'
+      ,width: '100%' //设置容器宽度
+      ,arrow: 'none' //始终显示箭头
+      ,height: '180px'
+      //,anim: 'updown' //切换动画方式
+      ,indicator: 'outside'
+    });
+    var option = {
+      // title : {
+      //   text: '某楼盘销售情况'
+      //   // ,subtext: '纯属虚构'
+      // },
+      tooltip : {
+        trigger: 'axis'
+      },
+      // legend: {
+      //   data:['意向','预购','成交']
+      // },
+      // toolbox: {
+      //   show : true,
+      //   feature : {
+      //     mark : {show: true},
+      //     dataView : {show: true, readOnly: false},
+      //     magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+      //     restore : {show: true},
+      //     saveAsImage : {show: true}
+      //   }
+      // },
+      calculable : true,
+      xAxis : [
+        {
+          type : 'category',
+          boundaryGap : false,
+          data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'成交',
+          type:'line',
+          smooth:true,
+          itemStyle: {normal: {areaStyle: {type: 'default'}}},
+          data:[10, 12, 21, 54, 260, 830, 710]
+        },
+        {
+          name:'预购',
+          type:'line',
+          smooth:true,
+          itemStyle: {normal: {areaStyle: {type: 'default'}}},
+          data:[30, 182, 434, 791, 390, 30, 10]
+        },
+        {
+          name:'意向',
+          type:'line',
+          smooth:true,
+          itemStyle: {normal: {areaStyle: {type: 'default'}}},
+          data:[1320, 1132, 601, 234, 120, 90, 20]
+        }
+      ]
+    };
+    var ec = echarts.init($('.echarts')[0]);
+    ec.setOption(option);
+
+  });
+</script>
+</html>

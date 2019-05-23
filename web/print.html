@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="author" content="gaoing<1422298566@qq.com">
+<title>打印设置</title>
+<link rel="stylesheet" href="./layui/css/layui.css">
+<style>
+  body{
+    padding-left: 50px;
+  }
+  .title{
+    height: 80px;
+    line-height: 80px;
+  }
+  .title-text{
+    font-weight: 700;
+  }
+  .layui-input-block .limit{
+    width: 300px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .layui-input-block .layui-input {
+    display: inline-block;
+    max-width: 600px;
+    vertical-align: top;
+  }
+  .tips-text{
+    font-size: 12px;
+    color: #666666;
+  }
+  .layui-input-block .lineheight{
+    display: inline-block;
+    width: 100px;
+  }
+  .layui-input-inline .lineheight{
+    display: inline-block;
+    width: 100px;
+  }
+ .layui-form-select{
+   width: 100px;
+   display: inline-block;
+ }
+ .selectcol{
+   position: relative;
+   display: inline-block;
+   padding: 5px 10px;
+   border: 1px solid #4ba894;
+   color: #4ba894;
+   border-radius: 4px;
+   cursor: pointer;
+ }
+ .mid{
+   line-height: 38px;
+ }
+ .layui-form-item .font-style{
+  margin-left: 70px;
+  content: '';
+  display: block;
+  clear: both;
+ }
+ .font-style .layui-input-inline{
+   width: 210px;
+   margin-top: 10px;
+ }
+ .layui-form-item .layui-input-inline{
+   width: 210px;
+ }
+ .label-a{
+   width: 56px;
+   padding-left: 0;
+ }
+ .layui-form-radio{
+    line-height: 28px;
+    margin: 6px 10px 0 0;
+    padding-right: 10px;
+    cursor: pointer;
+    font-size: 0;
+    width: 155px;
+ }
+ .cols{
+   position: absolute;
+   bottom: 36px;
+   left: 0;
+   background-color: #ffffff;
+   padding: 5px 0 5px 10px;
+   border: 1px solid #e6e6e6;
+   border-radius: 4px;
+   display: none;
+ }
+</style>
+</head>
+<body>
+  
+  <form class="layui-form" lay-filter="print_form">
+    <div class="title">
+      <p class="title-text">(单据名称)打印设置 <button lay-submit lay-filter="sub_print" class="">提交</button></p>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">单名设置</label>
+      <div class="layui-input-block">
+        <input type="radio" name="billHead" value="def" title="企业名称+单据名称" >
+        <input type="radio" name="billHead" value="custom" title="自定义名称">
+        <input type="text" name="billHeadName" placeholder="" autocomplete="off" class="layui-input limit">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">单名字体</label>  
+      <div class="layui-input-inline">
+        <select name="fontFamilyHead">
+          <option value="宋体">宋体</option>
+          <option value="黑体">黑体</option>
+          <option value="华文行楷">华文行楷</option>
+        </select>
+      </div>
+      <div class="layui-input-inline">
+        <label class="layui-form-label">单名字号</label>  
+        <input type="text" name="fontSizeHead" class="layui-input lineheight">
+      </div>
+      <div class="layui-input-inline">
+        <input type="checkbox" name="isBlodHead" lay-skin="primary" title="加粗" checked="">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">单头设置</label>
+      <div class="layui-input-block">
+        <input type="radio" name="printBill" value="1" title="仅首页打印单头" >
+        <input type="radio" name="printBill" value="2" title="每页均打印">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">单尾审批</label>
+      <div class="layui-input-block">
+        <input type="radio" name="billSign" value="def" title="打印系统审批信息" >
+        <input type="radio" name="billSign" value="custom" title="自定义签字">
+        <input type="text" name="billSignData" placeholder="" autocomplete="off" class="layui-input limit">
+        <span class="tips-text">每项之间 “，” 分隔</span>
+      </div>
+      <div class="layui-input-block">
+        <input type="radio" name="printSign" value="1" title="仅尾页打印审批" >
+        <input type="radio" name="printSign" value="2" title="每页均打印">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">单尾备注</label>
+      <div class="layui-input-block">
+        <input type="text" name="billNotes" placeholder="" autocomplete="off" class="layui-input">
+      </div>
+      <div class="layui-input-block">
+        <input type="radio" name="printNotes" value="1" title="仅尾页打印备注" >
+        <input type="radio" name="printNotes" value="2" title="每页均打印">
+      </div>  
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">单据字体</label>  
+      <div class="layui-input-inline">
+        <select name="fontFamilyMain" lay-filter="aihao">
+          <option value="宋体">宋体</option>
+          <option value="黑体">黑体</option>
+          <option value="华文行楷">华文行楷</option>
+        </select>
+      </div>
+      <div class="layui-input-inline">
+        <label class="layui-form-label">单据字号</label>  
+        <input type="text" name="fontSizeMain" class="layui-input lineheight">
+      </div>
+      <div class="layui-input-inline">
+        <input type="checkbox" name="isBlodMain" lay-skin="primary" title="加粗">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">纸张设置</label>
+      <div class="layui-input-inline">
+        <label class="layui-form-label label-a">高度</label>  
+        <input type="text" name="pageHeight" class="layui-input lineheight">
+        <span class="tips-text">毫米</span>
+      </div>
+      <div class="layui-input-inline">
+        <label class="layui-form-label label-a">宽度</label>  
+        <input type="text" name="pageWidth" class="layui-input lineheight">
+        <span class="tips-text">毫米</span>
+      </div>
+      <div class="layui-input-inline">
+        <label class="layui-form-label label-a">左边距</label>  
+        <input type="text" name="intLeft" class="layui-input lineheight">
+        <span class="tips-text">毫米</span>
+      </div>
+      <div class="layui-input-inline">
+        <label class="layui-form-label label-a">表格行数</label>  
+        <input type="text" name="tableRows" class="layui-input lineheight">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">分页小计</label>
+      <div class="layui-input-block">
+        <input type="radio" name="isPagingSubtotal" value="1" title="打印" >
+        <input type="radio" name="isPagingSubtotal" value="2" title="不打印">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">打印次数</label>
+      <div class="layui-input-block">
+        <input type="radio" name="isPrintCount" value="1" title="打印" >
+        <input type="radio" name="isPrintCount" value="2" title="不打印">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">打印时间</label>
+      <div class="layui-input-block">
+        <input type="radio" name="isPrintTime" value="1" title="打印人及打印时间" >
+        <input type="radio" name="isPrintTime" value="2" title="不打印">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">打印条码</label>
+      <div class="layui-input-block">
+        <input type="radio" name="isBarCode" value="1" title="打印单号二维码" >
+        <input type="radio" name="isBarCode" value="2" title="不打印">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">打印选列</label>
+      <div class="layui-input-block">
+        <a class="selectcol">选择</a>
+        <ul class="cols"></ul>
+      </div>
+    </div>
+  </form>
+</body>
+<script src="./layui/layui.js"></script>
+<script type="text/javascript">
+  layui.use(['form', 'jquery'], function() {
+    var form = layui.form, $ = layui.jquery;
+    var printDes = {
+      billName: '' // 单据名称
+      , billHead: 'def'          // 单头名称选项 [def,custom]
+      , billHeadName:'' // 自定义名称
+      , fontFamilyHead:'宋体'  // 单头字体
+      , fontSizeHead: 24       // 单头字号
+      , isBlodHead: 'on'          // 单头是否加粗  1表示不加粗  2表示加粗
+      , printBill: '1'           // 打印单头  1表示仅首页打印单头  2表示每页都打印
+      , billSign: 'def'        // 单尾签字选项[def,custom]
+      , billSignData: 'asd,fds,fsd,fds' //单尾签字 字符串
+      , printSign: '1'           // 打印签字  1 表示仅尾页打印签字 2 表示每页都打印
+      , billNotes: ''            // 单尾备注
+      , printNotes: '1'          // 打印备注 1 表示仅尾页打印 2表示每页都打印
+      , fontFamilyMain:'宋体'  // 正文字体
+      , fontSizeMain: 12       // 正文字号
+      , isBlodMain: false          // 正文是否加粗  1表示不加粗  2表示加粗
+      , pageHeight: 93         // 纸张高度 
+      , pageWidth: 241         // 纸张宽度
+      , intLeft: 35            // 左边距
+      , tableRows: 7            // 表格行数
+      , isBlankFill: '2'         // 填充空行      1 表示不打印 2表示打印  
+      , isPrintCount: '2'        // 打印次数      1 表示不打印 2表示打印
+      , isPagingSubtotal: '2'    // 分页小计      1 表示不打印 2表示打印   
+      , isPrintTime: '2'         // 打印时间       1 表示不打印 2表示打印
+      , isBarCode: '2'           // 打印条码      1 表示不打印 2表示打印   
+      , colsSel:[
+        {
+          name: '姓名',
+          field: 'username',
+          isPrint: true
+        },{
+          name: '性列',
+          field: 'sex',
+          isPrint: true
+        },{
+          name: '年龄',
+          field: 'age',
+          isPrint: false
+        },{
+          name: '日期',
+          field: 'time',
+          isPrint: true
+        }
+      ]             // 打印选列
+    }, isCols = false;
+    var renderCols = function(cols) {
+      var html = '';
+      $.each(cols, function(i, item) {
+        html += '<li><input type="checkbox" name="'+item.field+'" lay-skin="primary" title="'+item.name +'" checked="'+item.isPrint+'"></li>'
+      });
+      $('.cols').html(html);
+    }
+    renderCols(printDes.colsSel);
+    form.val('print_form', printDes);
+    form.on('submit(sub_print)', function(data){
+      console.log(data.field);
+      return false;
+    });
+    $('.selectcol').on('click', function() {
+      isCols = !isCols;
+      if(isCols){
+        $('.cols').show();
+      }else{
+        $('.cols').hide();
+      }
+    });
+  });
+</script>
+</html>

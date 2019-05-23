@@ -19,23 +19,16 @@
       return $num;
     }
   }
-  function createBrief() {
-    global $name,$synopsis,$image;
-    $sql = 'select `brief` from `local_dishes`';
-    $sqlb = 'select brief from local_dishes where name="'.$name.'"';
-    $tempBrief = connectsql($sqlb);
-    if($tempBrief){
-      $brief = $tempBrief[0][0];
-    }else{
-      $briefs = connectsql($sql);
-      $brief = createRander($briefs);
-      $mysql = 'insert `local_dishes`(`name`,`brief`,`synopsis`,`image`) values("'.$name.'","'.$brief.'","'.$synopsis.'","'.$image.'")';
-      connectsql($mysql);
-    }
-    return $brief;
-  } 
-  $brief = createBrief();
-  $access_token = '24.22caf2059fcc80e2e45e45c84fab6700.2592000.1557472059.282335-15958971';
+  $sql = 'select `brief` from `local_dishes`';
+  $sqlb = 'select brief from local_dishes where name="'.$name.'"';
+  $tempBrief = connectsql($sqlb);
+  if($tempBrief){
+    $brief = $tempBrief[0][0];
+  }else{
+    $briefs = connectsql($sql);
+    $brief = createRander($briefs);
+  }
+  $access_token = '24.6a427622b01059c60a15e8e6b1d3a196.2592000.1558515898.282335-15958971';
   $url = 'https://aip.baidubce.com/rest/2.0/image-classify/v1/realtime_search/dish/add?access_token=' . $access_token;
   $bodys = array(
     'image' => $image,
@@ -45,10 +38,15 @@
   function callback($res) {
     $res = json_decode($res);
     if(property_exists($res, 'error_code')){
-      echo '{"error": "item has existed"}';
+      // echo '{"error": "item has existed"}';
+      echo json_encode($res);
       return ;
     }
-    global $brief, $image;
+    global $brief, $image, $synopsis, $name, $tempBrief;
+    if(!$tempBrief){
+      $mysql = 'insert `local_dishes`(`name`,`brief`,`synopsis`,`image`) values("'.$name.'","'.$brief.'","'.$synopsis.'","'.$image.'")';
+      connectsql($mysql);
+    }
     $sqlimg = 'insert `local_imgs`(`dish_brief`,`image`,`log_id`,`cont_sign`) values("'.$brief.'","'.$image.'","'.$res->log_id.'","'.$res->cont_sign.'")';
     $result = connectsql($sqlimg);
     if($result){

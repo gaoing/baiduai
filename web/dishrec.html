@@ -70,6 +70,7 @@
       $('#mask').hide();
     });
     $('#ph').on('click', function() {
+      ctx.clearRect(0,0,canv.width,canv.height);
       var index = layer.load(1);
       $('#video').hide();
       $('#mask').show();
@@ -87,6 +88,7 @@
       }).done(function(e){
         layer.close(index);
         e = JSON.parse(e);
+        console.log(e);
         ctx.fillStyle = 'rgba(0,0,0,.5)';
         ctx.rect(0,0,canv.width,canv.height);
         ctx.fill();

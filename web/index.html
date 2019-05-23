@@ -1,216 +1,30 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
-<head>  
-<title>HTML5 GetUserMedia Demo</title>  
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />  
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>远程欢迎页</title>
+<link rel="stylesheet" href="./layui/css/layui.css">
 <style>
-    .button{
-        cursor: pointer;
-    }
-    .wrap{
-        display: inline-block;
-        /* width: 480px;
-        height: 320px; */
-        border: 1px solid #f00000;
-        border-radius: 4px;
-        margin: 20px;
-    }
-    .box{
-        display: inline-block;
-    }
-    .upload{
-        padding: 5px 10px;
-        border: 1px solid #f00000;
-        background-color: #f3eaea;
-        border-radius: 4px;
-        cursor:pointer;
-    }
+html{background-color: '#ffffff'; color: #1BC0AF;}
+a,a:hover{color: #1BC0AF;}
+body{padding: 40px 20px 0; line-height: 26px; text-align: center; font-size: 18px; font-weight: 300;}
 </style>
-</head>  
+</head>
 <body>
-    <div class="tools">
-        <button type="button" id="open_camera">打开摄像头</button>
-        <button type="button" id="photograph">拍照</button>
-        <button type="button" id="search">检索</button>
-        <button type="button" id="submit">入库</button>
-        <button type="button" id="more">多张入库</button>
-        <audio id="export" controls autoplay></audio>
-        <label for="text">菜品名称:<input type="text" id="text"> </label>
-        <label for="dish">菜品简介:<input type="text" id="dish"> </label>
-    </div>
-    <div class="box">
-        <h4>原始动态</h4>
-        <video id="wrap_video" width="512" height="384" class="wrap"></video>
-    </div>
-    <div class="box">
-        <canvas id="image_wrap" width="512" height="384" style="display: none;"></canvas>
-        <img id="img" src="" alt="">
-    </div>
-    
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        function $Id(id){ return document.getElementById(id) };
-        // Get elements
-        var openCamera = $Id('open_camera'),
-            photograph = $Id('photograph'),
-            wrapVideo  = $Id('wrap_video'),
-            imageWrap  = $Id('image_wrap'),
-            submit     = $Id('submit'),
-            // images      = $Id('images'),
-            img        = $Id('img'),
-            search     = $Id('search'),
-            uploadBtn  = $Id('upload'),
-            audio      = $Id('export'),
-            text       = $Id('text'),
-            dish       = $Id('dish'),
-            more       = $Id('more'),
-            ctxImage   = imageWrap.getContext('2d');
-            function getUserMedia(constraints, success, error) {
-                if (navigator.mediaDevices.getUserMedia) {
-                    //最新的标准API
-                    navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
-                } else if (navigator.webkitGetUserMedia) {
-                    //webkit核心浏览器
-                    navigator.webkitGetUserMedia(constraints,success, error)
-                } else if (navigator.mozGetUserMedia) {
-                    //firfox浏览器
-                    navigator.mozGetUserMedia(constraints, success, error);
-                } else if (navigator.getUserMedia) {
-                    //旧版API
-                    navigator.getUserMedia(constraints, success, error);
-                }
-            }
-        // Call camera
-        function openCameraConfig(){
-            // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-            if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
-                getUserMedia({
-                    video: {
-                        width:  1024,
-                        height: 768
-                    }
-                }, getStream, noStream);
-            }
-            function getStream(stream) {
-                console.log(stream);
-                wrapVideo.srcObject = stream;
-                // wrapVideo.play();
-                wrapVideo.onerror = function() {
-                    stream.stop();
-                };
-                stream.onended = noStream;
-                wrapVideo.onloadedmetadata = function() {
-                    console.log('摄像头打开成功');
-                    wrapVideo.play();
-                }
-            }
+<p>我是···</p>
+<p style="margin-top: 30px;">
+  <i class="layui-icon" style="font-size: 300px; line-height: 300px;">&#xe60c;</i>
+</p>
 
-            function noStream(err) {
-                console.log(err)
-            }
-        }
-
-        // openCamera
-        openCamera.onclick = function() {
-            openCameraConfig();
-        }
-
-        //photograph
-        photograph.onclick = function() {
-            ctxImage.drawImage(wrapVideo, 0, 0, 512, 384);
-            img.src = imageWrap.toDataURL('image/png');
-        }
-
-        //提交
-        function upload(url, callback) {
-            var fd = new FormData();
-            fd.append('image', img.src);
-            fd.append('brief', text.value);
-            var ajax = new XMLHttpRequest();
-            ajax.upload.addEventListener('progress', (e) => {
-                callback('progress', e);
-            },false);
-            ajax.addEventListener('load', (e) => {
-                callback('load', e);
-            },false);
-            ajax.addEventListener('abort', (e) => {
-                callback('cancel', e);
-            },false);
-            ajax.addEventListener('error', (e) => {
-                callback('error', e);
-            },false);
-            ajax.open('POST', url);
-            ajax.send(fd);
-        }
-
-        // 入库
-        submit.onclick = function() {
-            var fd = new FormData();
-            if(!text.value){
-                alert('name为空')
-                return
-            }
-            if(!dish.value){
-                alert('dish为空')
-                return
-            }
-            fd.append('image', img.src);
-            fd.append('name', text.value);
-            fd.append('synopsis', dish.value);
-            console.log(text.value, dish.value);
-            $.ajax({
-              url: 'http://localhost/xampp/baiduai/server/warehousing.php',
-              type: 'post',
-              processData:false,
-              contentType:false,
-              data: fd
-            }).done(function(e){
-              console.log(e);
-            }).fail(function() {
-              console.log('请求出错了！！！');
-            });
-        }
-        // 菜品入库多张
-        more.onclick = function() {
-            var fd = new FormData();
-            if(!text.value){
-                alert('name为空')
-                return
-            }
-            fd.append('image', img.src);
-            fd.append('name', text.value);
-            console.log(text.value);
-            $.ajax({
-              url: 'http://localhost/xampp/baiduai/server/moredish.php',
-              type: 'post',
-              processData:false,
-              contentType:false,
-              data: fd
-            }).done(function(e){
-              console.log(e);
-            }).fail(function() {
-              console.log('请求出错了！！！');
-            });
-        }
-        // 检索
-        search.onclick = function() {
-            var fd = new FormData();
-            fd.append('image', img.src);
-            fd.append('brief', text.value);
-            $.ajax({
-              url: 'http://localhost/xampp/baiduai/server/dishreg.php',
-              type: 'post',
-              processData:false,
-              contentType:false,
-              data: fd
-            }).done(function(e){
-              console.log(e);
-            }).fail(function() {
-              console.log('请求出错了！！！');
-            });
-        }
-    </script>
-</body>  
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+</body>
 </html>
-

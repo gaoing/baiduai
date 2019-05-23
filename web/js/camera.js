@@ -51,7 +51,7 @@ Camera.prototype.open = function (){
   }
   function noStream(err) {
     console.log(err);
-    $this.init(config, getStream, noStream);
+    // $this.init(config, getStream, noStream);
   }
   return this;
 }
